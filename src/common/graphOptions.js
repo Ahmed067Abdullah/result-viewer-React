@@ -6,11 +6,7 @@ export default flag => ({
       enabled: true
     },
     toolbar: {
-      tools: {
-        download: false,
-        selection: false,
-        pan: false,
-      },
+      show: false,
     },
   },
   stroke: {

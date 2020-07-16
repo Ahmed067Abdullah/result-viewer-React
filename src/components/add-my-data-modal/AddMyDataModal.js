@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import modalStyles from '../../common/modalStyles';
 import ReactModal from 'react-modal';
 import { saveData } from './AddMyDataModal.service';
@@ -7,6 +7,12 @@ import classes from './AddMyDataModal.module.css';
 const AddMyDataModal = ({ open, handleClose }) => {
   const [fieldValues, setFieldValues] = useState({ roll: '', results: '' });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      setFieldValues({ roll: '', results: '' });
+    }
+  }, [])
 
   const onSubmit = () => {
     const { roll, results } = fieldValues;
@@ -19,6 +25,7 @@ const AddMyDataModal = ({ open, handleClose }) => {
     saveData(trimRoll, trimResults)
       .then(() => {
         handleClose();
+        setFieldValues({ roll: '', results: '' });
         setTimeout(() => {
           alert("Your data is successfully recorded. It would be updated in the app soon");
         });
