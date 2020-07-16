@@ -83,7 +83,6 @@ const App = () => {
         open={showResultModal}
         handleClose={() => setShowResultModal(false)}
         data={allStudents}
-        getCGPA={getCGPA}
       />
       <p className="heading">Agae meri mout ka tamasha dekhne!</p>
       <div className="select-container">
@@ -103,8 +102,9 @@ const App = () => {
       </div>
       {students.length
         ? <div className="student-data-container">
+          <div className="note">Results may not be current if the student has attempted any course again</div>
           <div className="cgpa-container">
-            {CGPAs.map(c => <span>{`${c.name} (${c.cgpa})`}</span>)}
+            {CGPAs.map((c, i) => <span key={i}>{`${c.name} (${c.cgpa})`}</span>)}
           </div>
           <div className="graph-container">
             <ReactApexChart

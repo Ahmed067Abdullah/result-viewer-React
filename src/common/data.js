@@ -62,5 +62,9 @@ export default [
     "roll": "SE-072",
     "name": "SM Asad Haider Rizvi",
     "results": [3.60, 3.31, 3.58, 3.19, 3.38, 3.26, 3.17],
+  }, {
+    "roll": "SE-301",
+    "name": "Syed Raffay Hussain",
+    "results": [3.84, 3.28, 3.89, 3.89, 3.73, 3.75, 3.78],
   },
 ];
