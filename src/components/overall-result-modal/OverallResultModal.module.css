@@ -1,0 +1,73 @@
+.cross-icon-container {
+  display: flex;
+  justify-content: center;
+}
+
+.cross-icon-container p {
+  margin: 0;
+  margin-left: auto;
+  color: #4e4e4e;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.cross-icon-container button {
+  padding: 8px 12px 10px;
+  border-radius: 50%;
+  font-size: 16px;
+  margin-top: 0px;
+  margin-left: auto;
+}
+
+.content-container {
+  margin: 10px 0px;
+  padding: 0 50px 0 20px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+@media(max-width:1130px) {
+  .content-container {
+    padding: 0 20px 0 0px;
+  }
+}
+
+/* width */
+
+.content-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+.content-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+
+.content-container::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+
+.content-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.student {
+  margin: 5px 0;
+  color: #4e4e4e;
+}
+
+.rank {
+  font-weight: 500;
+  margin: 0 5px;
+}
+
+@media(max-width:520px) {
+  .content-container {
+    margin: 0 0px;
+  }
+}

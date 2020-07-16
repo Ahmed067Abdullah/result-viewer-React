@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import ReactApexChart from 'react-apexcharts';
 import AddMyDataModal from '../../components/add-my-data-modal/AddMyDataModal';
+import OverallResultModal from '../../components/overall-result-modal/OverallResultModal';
 import data from '../../common/data';
 import graphOptions from '../../common/graphOptions';
 import creditHours from '../../common/creditHours';
@@ -14,6 +15,7 @@ const Result = () => {
   const [showAvg, setShowAvg] = useState(false);
   const [avgGPAs, setAvgGPAs] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showResultModal, setShowResultModal] = useState(false);
 
   useEffect(() => {
     setAllStudents(data.map(o => ({
@@ -33,7 +35,7 @@ const Result = () => {
     // }])
   }, []);
 
-  const getSumOfArray = arr => arr.reduce((total, r) => r + total, 0)
+  const getSumOfArray = arr => arr.reduce((total, r) => r + total, 0);
 
   const getCGPA = results => {
     if (!results || !results.length) return 0;
@@ -67,14 +69,27 @@ const Result = () => {
 
   return (
     <div>
-      <button
-        className="add-my-data-btn"
-        onClick={() => setShowModal(true)}>
-        {'Add my data too'}
-      </button>
+      <div className="top-btns-container">
+        <button
+          className="add-my-data-btn"
+          onClick={() => setShowModal(true)}>
+          {'Add my data too'}
+        </button>
+        <button
+          className="add-my-data-btn"
+          onClick={() => setShowResultModal(true)}>
+          {'View overall result'}
+        </button>
+      </div>
       <AddMyDataModal
         open={showModal}
         handleClose={() => setShowModal(false)}
+      />
+      <OverallResultModal
+        open={showResultModal}
+        handleClose={() => setShowResultModal(false)}
+        data={allStudents}
+        getCGPA={getCGPA}
       />
       <p className="heading">Agae meri mout ka tamasha dekhne!</p>
       <div className="select-container">

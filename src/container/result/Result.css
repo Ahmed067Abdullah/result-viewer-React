@@ -1,9 +1,8 @@
-.add-my-data-btn {
+.top-btns-container {
   position: absolute;
   top: 5px;
   right: 10px;
 }
-
 
 .heading {
   text-align: center;
@@ -14,11 +13,12 @@
   margin-bottom: 15px;
 }
 
-@media(max-width:830px) {
+@media(max-width:1130px) {
   .heading {
-   margin-top: 60px;
+    margin-top: 60px;
   }
 }
+
 .select-container {
   margin: 10px auto;
   width: 700px;

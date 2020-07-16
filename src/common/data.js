@@ -20,9 +20,19 @@ export default [
     "results": [3.75, 3.44, 3.38, 2.74, 3.48, 3.65, 3.42],
   },
   {
+    "roll": "SE-048",
+    "name": "Bilal Ahmad",
+    "results": [3.72, 3.60, 3.45, 2.89, 2.93, 2.54, 2.79],
+  },
+  {
     "roll": "SE-049",
     "name": "Muahammad Ghayas Baig",
     "results": [3.91, 3.87, 3.93, 3.90, 3.79, 3.89, 3.84],
+  },
+  {
+    "roll": "SE-050",
+    "name": "Abdul Haseeb",
+    "results": [3.95, 3.67, 3.56, 2.68, 3.25, 3.52, 3.36],
   },
   {
     "roll": "SE-051",
