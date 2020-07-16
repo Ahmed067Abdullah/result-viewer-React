@@ -1,3 +1,10 @@
+.add-my-data-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+
 .heading {
   text-align: center;
   font-size: 32px;
@@ -7,6 +14,11 @@
   margin-bottom: 15px;
 }
 
+@media(max-width:830px) {
+  .heading {
+   margin-top: 60px;
+  }
+}
 .select-container {
   margin: 10px auto;
   width: 700px;
@@ -69,6 +81,7 @@ button {
   margin: 10px 5px 0px;
   cursor: pointer;
   border: none;
+  border-radius: 4px;
   background-color: #26A0FC;
   color: white;
 }
