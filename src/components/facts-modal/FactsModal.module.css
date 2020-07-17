@@ -1,0 +1,11 @@
+.content-container {
+  margin: 0 15px 0 -15px;
+}
+
+.content-container li {
+  margin: 10px 0;
+}
+
+.content-container span {
+  font-weight: 500;
+}

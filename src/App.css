@@ -2,6 +2,9 @@
   position: absolute;
   top: 5px;
   right: 10px;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .heading {
@@ -13,9 +16,15 @@
   margin-bottom: 15px;
 }
 
-@media(max-width:1130px) {
+@media(max-width:1475px) {
   .heading {
     margin-top: 60px;
+  }
+}
+
+@media(max-width:472px) {
+  .heading {
+    margin-top: 90px;
   }
 }
 
@@ -95,4 +104,26 @@ button {
   border-radius: 4px;
   background-color: #26A0FC;
   color: white;
+}
+
+/* modal styles */
+.cross-icon-container {
+  display: flex;
+  justify-content: center;
+}
+
+.cross-icon-container p {
+  margin: 0;
+  margin-left: auto;
+  color: #4e4e4e;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.cross-icon-container button {
+  padding: 8px 12px 10px;
+  border-radius: 50%;
+  font-size: 16px;
+  margin-top: 0px;
+  margin-left: auto;
 }

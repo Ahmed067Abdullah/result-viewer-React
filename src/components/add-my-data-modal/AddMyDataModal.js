@@ -56,7 +56,7 @@ const AddMyDataModal = ({ open, handleClose }) => {
       isOpen={open}
       style={modalStyles}
     >
-      <div className={classes['cross-icon-container']}>
+      <div className='cross-icon-container'>
         <p>Add my data</p>
         <button onClick={handleClose}>&#10006;</button>
       </div>

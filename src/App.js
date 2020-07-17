@@ -7,6 +7,7 @@ import data from './common/data2';
 import graphOptions from './common/graphOptions';
 import creditHours from './common/creditHours';
 import './App.css';
+import FactsModal from './components/facts-modal/FactsModal';
 
 const App = () => {
   const [allStudents, setAllStudents] = useState([]);
@@ -16,6 +17,7 @@ const App = () => {
   const [avgGPAs, setAvgGPAs] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
+  const [showFactsModal, setShowFactsModal] = useState(false);
 
   useEffect(() => {
     setAllStudents(data.map(o => ({
@@ -65,12 +67,14 @@ const App = () => {
     <div>
       <div className="top-btns-container">
         <button
-          className="add-my-data-btn"
           onClick={() => setShowModal(true)}>
           {'Add my data too'}
         </button>
         <button
-          className="add-my-data-btn"
+          onClick={() => setShowFactsModal(true)}>
+          {'Some interesting facts'}
+        </button>
+        <button
           onClick={() => setShowResultModal(true)}>
           {'View overall result'}
         </button>
@@ -82,6 +86,11 @@ const App = () => {
       <OverallResultModal
         open={showResultModal}
         handleClose={() => setShowResultModal(false)}
+        data={allStudents}
+      />
+      <FactsModal
+        open={showFactsModal}
+        handleClose={() => setShowFactsModal(false)}
         data={allStudents}
       />
       <p className="heading">Agae meri mout ka tamasha dekhne!</p>
@@ -100,7 +109,7 @@ const App = () => {
       </div>
       {students.length
         ? <div className="student-data-container">
-          <div className="note">Results may not be correct if the student has attempted any course again</div>
+          <div className="note">Results may not be correct if the student has reattempted any course.</div>
           <div className="cgpa-container">
             {CGPAs.map((c, i) => <span key={i}>{`${c.name} (${c.cgpa})`}</span>)}
           </div>
