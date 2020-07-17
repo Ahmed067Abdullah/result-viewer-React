@@ -3,7 +3,7 @@ import Select from 'react-select';
 import ReactApexChart from 'react-apexcharts';
 import AddMyDataModal from './components/add-my-data-modal/AddMyDataModal';
 import OverallResultModal from './components/overall-result-modal/OverallResultModal';
-import data from './common/data';
+import data from './common/data2';
 import graphOptions from './common/graphOptions';
 import creditHours from './common/creditHours';
 import './App.css';
@@ -89,20 +89,18 @@ const App = () => {
         <Select
           isClearable
           isMulti
+          isSearchable
           getOptionValue={o => o.roll}
           getOptionLabel={o => `${o.name} (${o.roll})`}
           onChange={val => setStudents(val || [])}
-          placeholder="Select student..."
-          isSearchable
-          name="color"
+          placeholder="Select students..."
+          name="students"
           options={allStudents}
-          className="basic-multi-select"
-          classNamePrefix="select"
         />
       </div>
       {students.length
         ? <div className="student-data-container">
-          <div className="note">Results may not be current if the student has attempted any course again</div>
+          <div className="note">Results may not be correct if the student has attempted any course again</div>
           <div className="cgpa-container">
             {CGPAs.map((c, i) => <span key={i}>{`${c.name} (${c.cgpa})`}</span>)}
           </div>
