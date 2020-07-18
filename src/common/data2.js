@@ -273,7 +273,6 @@ export default [
     "roll": "SE-053",
     "name": "Hasasn Raza Dar",
     "gender": 1,
-    "gender": 0,
     "results": [3.83, 3.58, 3.63, 3.48, 3.53, 3.54, 3.56],
   },
   {

@@ -79,14 +79,14 @@ const FactsModal = ({ data, open, handleClose }) => {
       </div>
       <div className={classes['content-container']}>
         <ol>
-          <li>Total <span>{studentsScoring4GPAs}</span> students have secured 4 GPA in a semester till now.</li>
+          <li>Total <span>{studentsScoring4GPAs}</span> students have secured 4 GPA till now.</li>
           <li><span>{max4GPAsByStudent.name}</span> has scored 4 GPA the most <span>({max4GPAsByStudent.count})</span> times.</li>
           <li>Semester <span>{max4GPAsInOneSemester.number}</span> had the most <span>({max4GPAsInOneSemester.count})</span> 4 GPA scoring students.</li>
           <li>Semester <span>{semestersWithNo4GPAs.join(",")}</span> had no student able to score 4 GPA.</li>
-          <li>None of the <span>boys</span> have ever scored 4 GPA</li>
-          <li>The average CGPA of the class is <span>{avgCGPA}</span></li>
-          <li>The average CGPA of Boys in the class is <span>{avgCGPAOfBoys}</span></li>
-          <li>The average CGPA of Girls in the class is <span>{avgCGPAOfGirls}</span></li>
+          <li>None of the <span>boys</span> have ever scored 4 GPA.</li>
+          <li>The average CGPA of the class is <span>{avgCGPA}</span>.</li>
+          <li>The average CGPA of Boys in the class is <span>{avgCGPAOfBoys}</span>.</li>
+          <li>The average CGPA of Girls in the class is <span>{avgCGPAOfGirls}</span>.</li>
           <li>There are <span>{studentsWithAbove3point7CGPA}</span> students having CGPA over 3.7.</li>
           <li>There are <span>{studentsWithAbove3point5CGPA}</span> students having CGPA over 3.5.</li>
           <li>There are <span>{studentsWithAbove3CGPA}</span> students having CGPA over 3.0.</li>
