@@ -8,6 +8,7 @@ import graphOptions from './common/graphOptions';
 import creditHours from './common/creditHours';
 import './App.css';
 import FactsModal from './components/facts-modal/FactsModal';
+import { updateCount } from './components/add-my-data-modal/AddMyDataModal.service';
 
 const App = () => {
   const [allStudents, setAllStudents] = useState([]);
@@ -20,6 +21,7 @@ const App = () => {
   const [showFactsModal, setShowFactsModal] = useState(false);
 
   useEffect(() => {
+    updateCount();
     setAllStudents(data.map(o => ({
       ...o,
       'cgpa': getCGPA(o.results)
@@ -31,6 +33,16 @@ const App = () => {
     );
     setAvgGPAs(sumGPAs.map(s => (s / data.length).toFixed(3)));
   }, []);
+
+  const downloadDataHandler = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "data.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
 
   const getSumOfArray = arr => arr.reduce((total, r) => r + total, 0);
 
@@ -68,7 +80,11 @@ const App = () => {
       <div className="top-btns-container">
         <button
           onClick={() => setShowModal(true)}>
-          {'Add my data too'}
+          {'Add/Edit my data'}
+        </button>
+        <button
+          onClick={downloadDataHandler}>
+          {'Download JSON data'}
         </button>
         <button
           onClick={() => setShowFactsModal(true)}>
