@@ -355,6 +355,6 @@ export default [
     "roll": "SE-301",
     "name": "Syed Raffay Hussain",
     "gender": 1,
-    "results": [3.84, 3.28, 3.89, 3.89, 3.73, 3.75, 3.78],
+    "results": [3.83, 3.50, 3.88, 3.93, 3.74, 3.75, 3.78],
   },
 ];

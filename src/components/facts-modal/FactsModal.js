@@ -3,7 +3,7 @@ import modalStyles from '../../common/modalStyles';
 import ReactModal from 'react-modal';
 import classes from './FactsModal.module.css';
 
-const FactsModal = ({ data, open, handleClose }) => {
+const FactsModal = ({ avgGPAs, data, open, handleClose }) => {
   let max4GPAsByStudent = { name: '', count: 0 };
   let max4GPAsInASemester = [0, 0, 0, 0, 0, 0, 0];
   let max4GPAsInOneSemester = {};
@@ -17,6 +17,8 @@ const FactsModal = ({ data, open, handleClose }) => {
   let totalCGPAOfGirls = 0;
   let totalBoys = 0;
   let totalGirls = 0;
+  let boyWith4GPA = false;
+  let girlWith4GPA = false;
 
   for (let i = 0; i < data.length; i++) {
     const { results, name, cgpa, gender } = data[i];
@@ -26,6 +28,11 @@ const FactsModal = ({ data, open, handleClose }) => {
       if (results[j] === 4.00) {
         max4GPAsInASemester[j]++;
         count4GPAs++;
+        if (gender) {
+          boyWith4GPA = true;
+        } else {
+          girlWith4GPA = true;
+        }
       }
     }
     if (count4GPAs > max4GPAsByStudent.count) {
@@ -68,6 +75,17 @@ const FactsModal = ({ data, open, handleClose }) => {
   const avgCGPAOfBoys = (totalCGPAOfBoys / totalBoys).toFixed(3);
   const avgCGPAOfGirls = (totalCGPAOfGirls / totalGirls).toFixed(3);
 
+  let maxAvgGPA = { number: 1, value: avgGPAs[0] };
+  let minAvgGPA = { number: 1, value: avgGPAs[0] };
+  for (let i = 1; i < avgGPAs.length; i++) {
+    if (avgGPAs[i] > maxAvgGPA.value) {
+      maxAvgGPA = { number: i + 1, value: avgGPAs[i] };
+    }
+    if (avgGPAs[i] < minAvgGPA.value) {
+      minAvgGPA = { number: i + 1, value: avgGPAs[i] };
+    }
+  }
+
   return (
     <ReactModal
       isOpen={open}
@@ -83,10 +101,13 @@ const FactsModal = ({ data, open, handleClose }) => {
           <li><span>{max4GPAsByStudent.name}</span> has scored 4 GPA the most <span>({max4GPAsByStudent.count})</span> times.</li>
           <li>Semester <span>{max4GPAsInOneSemester.number}</span> had the most <span>({max4GPAsInOneSemester.count})</span> 4 GPA scoring students.</li>
           <li>Semester <span>{semestersWithNo4GPAs.join(",")}</span> had no student able to score 4 GPA.</li>
-          <li>None of the <span>boys</span> have ever scored 4 GPA.</li>
+          {boyWith4GPA ? '' : <li>None of the <span>boys</span> have ever scored 4 GPA.</li>}
+          {girlWith4GPA ? '' : <li>None of the <span>girls</span> have ever scored 4 GPA.</li>}
           <li>The average CGPA of the class is <span>{avgCGPA}</span>.</li>
           <li>The average CGPA of Boys in the class is <span>{avgCGPAOfBoys}</span>.</li>
           <li>The average CGPA of Girls in the class is <span>{avgCGPAOfGirls}</span>.</li>
+          <li>Semester <span>{maxAvgGPA.number}</span> had the best overall class result with average GPA of <span>{maxAvgGPA.value}</span>.</li>
+          <li>Semester <span>{minAvgGPA.number}</span> had the worst overall class result with average GPA of <span>{minAvgGPA.value}</span>.</li>
           <li>There are <span>{studentsWithAbove3point7CGPA}</span> students having CGPA over 3.7.</li>
           <li>There are <span>{studentsWithAbove3point5CGPA}</span> students having CGPA over 3.5.</li>
           <li>There are <span>{studentsWithAbove3CGPA}</span> students having CGPA over 3.0.</li>

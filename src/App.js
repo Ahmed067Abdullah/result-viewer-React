@@ -8,7 +8,7 @@ import graphOptions from './common/graphOptions';
 import creditHours from './common/creditHours';
 import './App.css';
 import FactsModal from './components/facts-modal/FactsModal';
-import { updateCount } from './components/add-my-data-modal/AddMyDataModal.service';
+import { updateCount, updateSelectCount } from './components/add-my-data-modal/AddMyDataModal.service';
 
 const App = () => {
   const [allStudents, setAllStudents] = useState([]);
@@ -108,6 +108,7 @@ const App = () => {
         open={showFactsModal}
         handleClose={() => setShowFactsModal(false)}
         data={allStudents}
+        avgGPAs={avgGPAs}
       />
       <p className="heading">Agae meri mout ka tamasha dekhne!</p>
       <div className="select-container">
@@ -117,7 +118,13 @@ const App = () => {
           isSearchable
           getOptionValue={o => o.roll}
           getOptionLabel={o => `${o.name} (${o.roll})`}
-          onChange={val => setStudents(val || [])}
+          onChange={val => {
+            if (val && val.length) {
+              const newStudent = val.find(v => !students.find(s => s.roll === v.roll));
+              updateSelectCount(newStudent.roll);
+            }
+            setStudents(val || []);
+          }}
           placeholder="Select students..."
           name="students"
           options={allStudents}
