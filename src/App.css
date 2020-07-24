@@ -13,17 +13,18 @@
 
 .heading {
   text-align: center;
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 500;
   color: #4e4e4e;
   padding: 0 10px;
   margin-bottom: 15px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
-@media(max-width:1090px) {
+@media(max-width:920px) {
   .heading {
-    margin-top: 55px;
+    font-size: 24px;
+    margin-top: 70px;
   }
 }
 
@@ -85,7 +86,10 @@
 
 @media(max-width:450px) {
   .graph-container {
-    height: 350px;
+    height: 70vw;
+  }
+  .note {
+    display: none;
   }
 }
 

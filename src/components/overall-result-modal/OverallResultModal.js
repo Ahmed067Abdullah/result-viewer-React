@@ -1,11 +1,12 @@
 import React from 'react';
-import modalStyles from '../../common/modalStyles';
 import ReactModal from 'react-modal';
+import modalStyles from '../../common/modalStyles';
 import classes from './OverallResultModal.module.css';
 
 const OverallResultModal = ({ data, open, handleClose }) => {
   const students = [...data];
   students.sort((a, b) => (a.cgpa > b.cgpa) ? -1 : ((b.cgpa > a.cgpa) ? 1 : 0));
+
   return (
     <ReactModal
       isOpen={open}
@@ -28,7 +29,7 @@ const OverallResultModal = ({ data, open, handleClose }) => {
         </div>)}
       </div>
     </ReactModal >
-  )
-}
+  );
+};
 
 export default OverallResultModal;

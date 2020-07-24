@@ -1,6 +1,6 @@
 import React from 'react';
-import modalStyles from '../../common/modalStyles';
 import ReactModal from 'react-modal';
+import modalStyles from '../../common/modalStyles';
 import classes from './FactsModal.module.css';
 
 const FactsModal = ({ avgGPAs, data, open, handleClose }) => {
@@ -112,11 +112,11 @@ const FactsModal = ({ avgGPAs, data, open, handleClose }) => {
           <li>There are <span>{studentsWithAbove3point7CGPA}</span> students having CGPA over 3.7.</li>
           <li>There are <span>{studentsWithAbove3point5CGPA}</span> students having CGPA over 3.5.</li>
           <li>There are <span>{studentsWithAbove3CGPA}</span> students having CGPA over 3.0.</li>
-          <li>Aap stable hote reh jaenge, unk 2 bche bi ho chuke hnge <span role="img" aria-label="">😂😂</span>.</li>
+          {/* <li>Aap stable hote reh jaenge, unk 2 bche bi ho chuke hnge <span role="img" aria-label="">😂😂</span>.</li> */}
         </ol>
       </div>
     </ReactModal >
-  )
-}
+  );
+};
 
 export default FactsModal;

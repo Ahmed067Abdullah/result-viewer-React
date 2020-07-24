@@ -5,10 +5,10 @@ import AddMyDataModal from './components/add-my-data-modal/AddMyDataModal';
 import OverallResultModal from './components/overall-result-modal/OverallResultModal';
 import GenderSegregatedGraphModal from './components/gender-segregated-graph-modal/GenderSegregatedGraphModal';
 import FactsModal from './components/facts-modal/FactsModal';
-import data from './common/data2';
+import { updateCount } from './components/add-my-data-modal/AddMyDataModal.service';
+import data from './common/data';
 import graphOptions from './common/graphOptions';
 import creditHours from './common/creditHours';
-import { updateCount } from './components/add-my-data-modal/AddMyDataModal.service';
 import './App.css';
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
   const [showGenderSegregatedGraph, setShowGenderSegregatedGraph] = useState(false);
 
   useEffect(() => {
-    updateCount('/count');
+    updateAppCounts();
     setAllStudents(data.map(o => ({
       ...o,
       'cgpa': getCGPA(o.results)
@@ -34,7 +34,17 @@ const App = () => {
       [0, 0, 0, 0, 0, 0, 0]
     );
     setAvgGPAs(sumGPAs.map(s => (s / data.length).toFixed(3)));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const updateAppCounts = () => {
+    updateCount('/count');
+    const alreadyUsed = localStorage.getItem("result-viewer");
+    if (!alreadyUsed) {
+      updateCount('/uniqueBrowser');
+      localStorage.setItem("result-viewer", true);
+    }
+  }
 
   const downloadDataHandler = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
@@ -121,6 +131,52 @@ const App = () => {
           }}
         />
       </div>
+      <p className="heading">Result Of BESE (2016-17)</p>
+      <div className="select-container">
+        <Select
+          isClearable
+          isMulti
+          isSearchable
+          getOptionValue={o => o.roll}
+          getOptionLabel={o => `${o.name} (${o.roll})`}
+          onChange={val => {
+            if (val && val.length) {
+              const newStudent = val.find(v => !students.find(s => s.roll === v.roll));
+              updateCount(`/userSelected/${newStudent.roll}`);
+            }
+            setStudents(val || []);
+          }}
+          placeholder="Select students..."
+          name="students"
+          options={allStudents}
+        />
+      </div>
+      {students.length
+        ? <div className="student-data-container">
+          <div className="note">Results may not be correct if the student has reattempted any course.</div>
+          <div className="cgpa-container">
+            {CGPAs.map((c, i) => <span key={i}>{`${c.name.split(" ")[0]} (${c.cgpa})`}</span>)}
+          </div>
+          <div className="graph-container">
+            <ReactApexChart
+              height={'100%'}
+              options={graphOptions(showCGPA)}
+              series={graphData}
+              type="line"
+              width={'100%'}
+            />
+          </div>
+          <div className="button-container">
+            <button onClick={() => setShowCGPA(!showCGPA)}>
+              {`Show ${showCGPA ? 'GPA' : 'CGPA'} Graph`}
+            </button>
+            <button onClick={() => setShowAvg(!showAvg)}>
+              {`${showAvg ? 'Hide' : 'Show'} Average Line`}
+            </button>
+          </div>
+        </div>
+        : null}
+
       {showModal
         ? <AddMyDataModal
           open={showModal}
@@ -148,55 +204,6 @@ const App = () => {
           data={allStudents}
           avgGPAs={avgGPAs}
         />
-        : null}
-
-      <p className="heading">Agae meri mout ka tamasha dekhne!</p>
-      <div className="select-container">
-        <Select
-          isClearable
-          isMulti
-          isSearchable
-          getOptionValue={o => o.roll}
-          getOptionLabel={o => `${o.name} (${o.roll})`}
-          onChange={val => {
-            if (val && val.length) {
-              const newStudent = val.find(v => !students.find(s => s.roll === v.roll));
-              updateCount(`/userSelected/${newStudent.roll}`);
-              if (val.length === 6) {
-                alert("Bs na, ktne select kroge");
-              }
-            }
-            setStudents(val || []);
-          }}
-          placeholder="Select students..."
-          name="students"
-          options={allStudents}
-        />
-      </div>
-      {students.length
-        ? <div className="student-data-container">
-          <div className="note">Results may not be correct if the student has reattempted any course.</div>
-          <div className="cgpa-container">
-            {CGPAs.map((c, i) => <span key={i}>{`${c.name} (${c.cgpa})`}</span>)}
-          </div>
-          <div className="graph-container">
-            <ReactApexChart
-              height={'100%'}
-              options={graphOptions(showCGPA)}
-              series={graphData}
-              type="line"
-              width={'100%'}
-            />
-          </div>
-          <div className="button-container">
-            <button onClick={() => setShowCGPA(!showCGPA)}>
-              {`Show ${showCGPA ? 'GPA' : 'CGPA'} Graph`}
-            </button>
-            <button onClick={() => setShowAvg(!showAvg)}>
-              {`${showAvg ? 'Hide' : 'Show'} Average Line`}
-            </button>
-          </div>
-        </div>
         : null}
     </div>
   );

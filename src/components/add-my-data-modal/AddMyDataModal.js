@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import modalStyles from '../../common/modalStyles';
 import ReactModal from 'react-modal';
 import { saveData } from './AddMyDataModal.service';
+import modalStyles from '../../common/modalStyles';
 import classes from './AddMyDataModal.module.css';
 
 const AddMyDataModal = ({ open, handleClose }) => {
@@ -12,7 +12,7 @@ const AddMyDataModal = ({ open, handleClose }) => {
     return () => {
       setFieldValues({ roll: '', results: '' });
     }
-  }, [])
+  }, []);
 
   const onSubmit = () => {
     const { roll, results } = fieldValues;
@@ -35,8 +35,7 @@ const AddMyDataModal = ({ open, handleClose }) => {
         alert("Error occured while storing your data, try again");
       })
       .finally(() => setLoading(false))
-
-  }
+  };
 
   const fields = [
     {
@@ -49,7 +48,7 @@ const AddMyDataModal = ({ open, handleClose }) => {
       'label': 'Results',
       'helperText': 'GPA of each semester from 1st to 7th, comma separted'
     }
-  ]
+  ];
 
   return (
     <ReactModal
@@ -79,7 +78,7 @@ const AddMyDataModal = ({ open, handleClose }) => {
       </button>
       </div>
     </ReactModal >
-  )
-}
+  );
+};
 
 export default AddMyDataModal;

@@ -57,7 +57,7 @@ const GenderSegregatedGraphModal = ({ allStudents, open, handleClose }) => {
         </div>
       </div>
     </ReactModal>
-  )
-}
+  );
+};
 
 export default GenderSegregatedGraphModal;
