@@ -30,7 +30,7 @@ const GenderSegregatedGraphModal = ({ allStudents, open, handleClose }) => {
       style={modalStyles}
     >
       <div className='cross-icon-container'>
-        <p>Gender Segregated Graph</p>
+        <p>Gender Segregated Graph (CGPA)</p>
         <button onClick={handleClose}>&#10006;</button>
       </div>
       <div className={classes['graph-container']}>

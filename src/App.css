@@ -1,10 +1,14 @@
 .top-btns-container {
   position: absolute;
-  top: 5px;
-  right: 10px;
+  top: 10px;
+  right: 15px;
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
+}
+
+.top-btns-container>div {
+  width: 220px;
 }
 
 .heading {
@@ -14,17 +18,12 @@
   color: #4e4e4e;
   padding: 0 10px;
   margin-bottom: 15px;
+  margin-top: 10px;
 }
 
-@media(max-width:1840px) {
+@media(max-width:1090px) {
   .heading {
-    margin-top: 60px;
-  }
-}
-
-@media(max-width:647px) {
-  .heading {
-    margin-top: 100px;
+    margin-top: 55px;
   }
 }
 
@@ -107,6 +106,7 @@ button {
 }
 
 /* modal styles */
+
 .cross-icon-container {
   display: flex;
   justify-content: center;
@@ -126,4 +126,13 @@ button {
   font-size: 16px;
   margin-top: 0px;
   margin-left: auto;
+  height: 40px;
+  width: 40px;
+}
+
+.info-text {
+  margin: 0;
+  text-align: center;
+  margin-left: -50px;
+  color: #4e4e4e;
 }

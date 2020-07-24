@@ -8,8 +8,8 @@ import FactsModal from './components/facts-modal/FactsModal';
 import data from './common/data2';
 import graphOptions from './common/graphOptions';
 import creditHours from './common/creditHours';
+import { updateCount } from './components/add-my-data-modal/AddMyDataModal.service';
 import './App.css';
-import { updateCount, updateSelectCount } from './components/add-my-data-modal/AddMyDataModal.service';
 
 const App = () => {
   const [allStudents, setAllStudents] = useState([]);
@@ -20,10 +20,10 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
   const [showFactsModal, setShowFactsModal] = useState(false);
-  const [showGenderSegregatedGraph, setShowGenderSegregatedGraph] = useState(true);
+  const [showGenderSegregatedGraph, setShowGenderSegregatedGraph] = useState(false);
 
   useEffect(() => {
-    updateCount();
+    updateCount('/count');
     setAllStudents(data.map(o => ({
       ...o,
       'cgpa': getCGPA(o.results)
@@ -77,29 +77,49 @@ const App = () => {
     }
   }
 
+  const otherInfoOptions = [
+    {
+      label: 'Add/Edit my data',
+      value: 'addData',
+      clickHandler: () => setShowModal(true)
+    },
+    {
+      label: 'Download JSON data',
+      value: 'downloadData',
+      clickHandler: downloadDataHandler
+    },
+    {
+      label: 'Some interesting facts',
+      value: 'facts',
+      clickHandler: () => setShowFactsModal(true)
+    },
+    {
+      label: 'Gender segregated graph',
+      value: 'graph',
+      clickHandler: () => setShowGenderSegregatedGraph(true)
+    },
+    {
+      label: 'Overall result',
+      value: 'overallResult',
+      clickHandler: () => setShowResultModal(true)
+    },
+  ];
+
   return (
     <div>
       <div className="top-btns-container">
-        <button
-          onClick={() => setShowModal(true)}>
-          {'Add/Edit my data'}
-        </button>
-        <button
-          onClick={downloadDataHandler}>
-          {'Download JSON data'}
-        </button>
-        <button
-          onClick={() => setShowGenderSegregatedGraph(true)}>
-          {'View Gender Segregated Graph'}
-        </button>
-        <button
-          onClick={() => setShowFactsModal(true)}>
-          {'Some interesting facts'}
-        </button>
-        <button
-          onClick={() => setShowResultModal(true)}>
-          {'View overall result'}
-        </button>
+        <Select
+          onChange={val => {
+            updateCount(`/options/${val.value}`);
+            val.clickHandler();
+          }}
+          isSearchable={false}
+          placeholder=""
+          options={otherInfoOptions}
+          value={{
+            'label': "Other options"
+          }}
+        />
       </div>
       {showModal
         ? <AddMyDataModal
@@ -141,7 +161,7 @@ const App = () => {
           onChange={val => {
             if (val && val.length) {
               const newStudent = val.find(v => !students.find(s => s.roll === v.roll));
-              updateSelectCount(newStudent.roll);
+              updateCount(`/userSelected/${newStudent.roll}`);
               if (val.length === 6) {
                 alert("Bs na, ktne select kroge");
               }

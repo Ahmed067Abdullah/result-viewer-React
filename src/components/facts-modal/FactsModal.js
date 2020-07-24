@@ -95,6 +95,7 @@ const FactsModal = ({ avgGPAs, data, open, handleClose }) => {
         <p>Interesting facts</p>
         <button onClick={handleClose}>&#10006;</button>
       </div>
+      <p className="info-text">Calculated from available data.</p>
       <div className={classes['content-container']}>
         <ol>
           <li>Total <span>{studentsScoring4GPAs}</span> students have secured 4 GPA till now.</li>
