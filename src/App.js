@@ -3,11 +3,12 @@ import Select from 'react-select';
 import ReactApexChart from 'react-apexcharts';
 import AddMyDataModal from './components/add-my-data-modal/AddMyDataModal';
 import OverallResultModal from './components/overall-result-modal/OverallResultModal';
+import GenderSegregatedGraphModal from './components/gender-segregated-graph-modal/GenderSegregatedGraphModal';
+import FactsModal from './components/facts-modal/FactsModal';
 import data from './common/data2';
 import graphOptions from './common/graphOptions';
 import creditHours from './common/creditHours';
 import './App.css';
-import FactsModal from './components/facts-modal/FactsModal';
 import { updateCount, updateSelectCount } from './components/add-my-data-modal/AddMyDataModal.service';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
   const [showFactsModal, setShowFactsModal] = useState(false);
+  const [showGenderSegregatedGraph, setShowGenderSegregatedGraph] = useState(true);
 
   useEffect(() => {
     updateCount();
@@ -87,6 +89,10 @@ const App = () => {
           {'Download JSON data'}
         </button>
         <button
+          onClick={() => setShowGenderSegregatedGraph(true)}>
+          {'View Gender Segregated Graph'}
+        </button>
+        <button
           onClick={() => setShowFactsModal(true)}>
           {'Some interesting facts'}
         </button>
@@ -95,21 +101,35 @@ const App = () => {
           {'View overall result'}
         </button>
       </div>
-      <AddMyDataModal
-        open={showModal}
-        handleClose={() => setShowModal(false)}
-      />
-      <OverallResultModal
-        open={showResultModal}
-        handleClose={() => setShowResultModal(false)}
-        data={allStudents}
-      />
-      <FactsModal
-        open={showFactsModal}
-        handleClose={() => setShowFactsModal(false)}
-        data={allStudents}
-        avgGPAs={avgGPAs}
-      />
+      {showModal
+        ? <AddMyDataModal
+          open={showModal}
+          handleClose={() => setShowModal(false)}
+        />
+        : null}
+      {showResultModal
+        ? <OverallResultModal
+          open={showResultModal}
+          handleClose={() => setShowResultModal(false)}
+          data={allStudents}
+        />
+        : null}
+      {showGenderSegregatedGraph
+        ? <GenderSegregatedGraphModal
+          open={showGenderSegregatedGraph}
+          handleClose={() => setShowGenderSegregatedGraph(false)}
+          allStudents={allStudents}
+        />
+        : null}
+      {showFactsModal
+        ? <FactsModal
+          open={showFactsModal}
+          handleClose={() => setShowFactsModal(false)}
+          data={allStudents}
+          avgGPAs={avgGPAs}
+        />
+        : null}
+
       <p className="heading">Agae meri mout ka tamasha dekhne!</p>
       <div className="select-container">
         <Select
@@ -122,6 +142,9 @@ const App = () => {
             if (val && val.length) {
               const newStudent = val.find(v => !students.find(s => s.roll === v.roll));
               updateSelectCount(newStudent.roll);
+              if (val.length === 6) {
+                alert("Bs na, ktne select kroge");
+              }
             }
             setStudents(val || []);
           }}
