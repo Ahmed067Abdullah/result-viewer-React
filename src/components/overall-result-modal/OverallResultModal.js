@@ -18,7 +18,7 @@ const OverallResultModal = ({ data, open, handleClose }) => {
       </div>
       <div className={classes["reminder"]}>Reminder: GPA doesn't matter</div>
       <div className={classes['content-container']}>
-        {students.map((s, i) => <div className={classes['student']} key={s.roll}>
+        {students.slice(0, 35).map((s, i) => <div className={classes['student']} key={s.roll}>
           <span className={classes['rank']}>
             {i + 1}.
           </span>
