@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
+import firebase from 'firebase';
 import { saveData } from './AddMyDataModal.service';
 import modalStyles from '../../common/modalStyles';
 import classes from './AddMyDataModal.module.css';
@@ -20,6 +21,11 @@ const AddMyDataModal = ({ open, handleClose }) => {
     const trimResults = results.trim();
 
     if (!trimRoll || !trimResults) return;
+
+    if(!firebase.apps.length) {
+      alert("Sorry, Database is not setup by the developer");
+      return;
+    } 
 
     setLoading(true);
     saveData(trimRoll, trimResults)

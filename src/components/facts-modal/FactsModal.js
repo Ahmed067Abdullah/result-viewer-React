@@ -86,6 +86,14 @@ const FactsModal = ({ avgGPAs, data, open, handleClose }) => {
     }
   }
 
+  let no4GPAGender = '';
+  if (!boyWith4GPA && girlWith4GPA) {
+    no4GPAGender = <li>None of the <span>boys</span> have ever scored 4 GPA.</li>;
+  }
+  if (boyWith4GPA && !girlWith4GPA) {
+    no4GPAGender = <li>None of the <span>girls</span> have ever scored 4 GPA.</li>;
+  }
+
   return (
     <ReactModal
       isOpen={open}
@@ -102,8 +110,7 @@ const FactsModal = ({ avgGPAs, data, open, handleClose }) => {
           <li><span>{max4GPAsByStudent.name}</span> has scored 4 GPA the most <span>({max4GPAsByStudent.count})</span> times.</li>
           <li>Semester <span>{max4GPAsInOneSemester.number}</span> had the most <span>({max4GPAsInOneSemester.count})</span> 4 GPA scoring students.</li>
           <li>Semester <span>{semestersWithNo4GPAs.join(",")}</span> had no student able to score 4 GPA.</li>
-          {boyWith4GPA ? '' : <li>None of the <span>boys</span> have ever scored 4 GPA.</li>}
-          {girlWith4GPA ? '' : <li>None of the <span>girls</span> have ever scored 4 GPA.</li>}
+          {no4GPAGender}
           <li>The average CGPA of the class is <span>{avgCGPA}</span>.</li>
           <li>The average CGPA of Boys in the class is <span>{avgCGPAOfBoys}</span>.</li>
           <li>The average CGPA of Girls in the class is <span>{avgCGPAOfGirls}</span>.</li>
