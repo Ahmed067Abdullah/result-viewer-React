@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import ReactApexChart from 'react-apexcharts';
+import ConfirmationModal from './components/confirmation-modal/ConfirmationModal';
 import AddMyDataModal from './components/add-my-data-modal/AddMyDataModal';
 import OverallResultModal from './components/overall-result-modal/OverallResultModal';
 import GenderSegregatedGraphModal from './components/gender-segregated-graph-modal/GenderSegregatedGraphModal';
 import FactsModal from './components/facts-modal/FactsModal';
+import { updateCount } from './components/add-my-data-modal/AddMyDataModal.service';
 import data from './common/data';
 import graphOptions from './common/graphOptions';
 import creditHours from './common/creditHours';
@@ -20,8 +22,10 @@ const App = () => {
   const [showResultModal, setShowResultModal] = useState(false);
   const [showFactsModal, setShowFactsModal] = useState(false);
   const [showGenderSegregatedGraph, setShowGenderSegregatedGraph] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   useEffect(() => {
+    updateAppCounts();
     setAllStudents(data.map(o => ({
       ...o,
       'cgpa': getCGPA(o.results)
@@ -32,8 +36,20 @@ const App = () => {
       [0, 0, 0, 0, 0, 0, 0]
     );
     setAvgGPAs(sumGPAs.map(s => (s / data.length).toFixed(3)));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    const userAgreed = localStorage.getItem("agreed");
+    setShowConfirmationModal(!userAgreed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const updateAppCounts = () => {
+    updateCount('/count');
+    const alreadyUsed = localStorage.getItem("result-viewer");
+    if (!alreadyUsed) {
+      updateCount('/uniqueBrowser');
+      localStorage.setItem("result-viewer", true);
+    }
+  }
 
   const downloadDataHandler = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
@@ -109,6 +125,7 @@ const App = () => {
       <div className="top-btns-container">
         <Select
           onChange={val => {
+            updateCount(`/options/${val.value}`);
             val.clickHandler();
           }}
           isSearchable={false}
@@ -128,6 +145,10 @@ const App = () => {
           getOptionValue={o => o.roll}
           getOptionLabel={o => `${o.name} (${o.roll})`}
           onChange={val => {
+            if (val && val.length) {
+              const newStudent = val.find(v => !students.find(s => s.roll === v.roll));
+              updateCount(`/userSelected/${newStudent.roll}`);
+            }
             setStudents(val || []);
           }}
           placeholder="Select students..."
@@ -161,6 +182,12 @@ const App = () => {
         </div>
         : null}
 
+      {showConfirmationModal
+        ? <ConfirmationModal
+          open={showConfirmationModal}
+          handleClose={() => setShowConfirmationModal(false)}
+        />
+        : null}
       {showModal
         ? <AddMyDataModal
           open={showModal}
