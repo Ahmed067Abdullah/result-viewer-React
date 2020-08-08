@@ -24,7 +24,7 @@ const OverallResultModal = ({ data, open, handleClose }) => {
           </span>
           {s.name}
           <span className={classes['rank']}>
-            ({s.cgpa})
+            ({s.cgpa}) ({s.grade})
           </span>
         </div>)}
       </div>

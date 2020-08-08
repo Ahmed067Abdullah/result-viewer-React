@@ -26,10 +26,14 @@ const App = () => {
 
   useEffect(() => {
     updateAppCounts();
-    setAllStudents(data.map(o => ({
-      ...o,
-      'cgpa': getCGPA(o.results)
-    })));
+    setAllStudents(data.map(o => {
+      const cgpa = getCGPA(o.results);
+      return {
+        ...o,
+        cgpa,
+        'grade': getGrade(cgpa)
+      };
+    }));
 
     const sumGPAs = data.reduce(
       (totalArr, d) => totalArr.map((t, i) => t + d.results[i]),
@@ -71,20 +75,32 @@ const App = () => {
     return (totalGPA / totalCH).toFixed(3);
   };
 
+  const getGrade = cgpa => {
+    if (cgpa === 4) return 'A';
+    else if (cgpa >= 3.7) return 'A-';
+    else if (cgpa >= 3.4) return 'B+';
+    else if (cgpa >= 3.0) return 'B';
+    else if (cgpa >= 2.7) return 'B-';
+    else if (cgpa >= 2.4) return 'C+';
+    else if (cgpa >= 2.0) return 'C';
+    else if (cgpa >= 1.7) return 'C-';
+    else return '';
+  };
+
   let graphData = [];
   let CGPAs = [];
   if (students.length) {
     if (showCGPA) {
       for (let i = 0; i < students.length; i++) {
-        const { name, results, cgpa } = students[i];
+        const { name, results, cgpa, grade } = students[i];
         graphData.push({ name, data: results.map((_, j) => getCGPA(results.slice(0, j + 1))) });
-        CGPAs.push({ name, cgpa });
+        CGPAs.push({ name, cgpa, grade });
       }
     } else {
       for (let i = 0; i < students.length; i++) {
-        const { name, results: data, cgpa } = students[i];
+        const { name, results: data, cgpa, grade } = students[i];
         graphData.push({ name, data });
-        CGPAs.push({ name, cgpa });
+        CGPAs.push({ name, cgpa, grade });
       }
     }
     if (showAvg) {
@@ -160,7 +176,7 @@ const App = () => {
         ? <div className="student-data-container">
           <div className="note">Results may not be correct if the student has reattempted any course.</div>
           <div className="cgpa-container">
-            {CGPAs.map((c, i) => <span key={i}>{`${c.name.split(" ")[0]} (${c.cgpa})`}</span>)}
+            {CGPAs.map((c, i) => <span key={i}>{`${c.name.split(" ")[0]} (${c.cgpa}) (${c.grade})`}</span>)}
           </div>
           <div className="graph-container">
             <ReactApexChart
