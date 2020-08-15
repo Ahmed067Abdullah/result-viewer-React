@@ -6,6 +6,7 @@ import AddMyDataModal from './components/add-my-data-modal/AddMyDataModal';
 import OverallResultModal from './components/overall-result-modal/OverallResultModal';
 import GenderSegregatedGraphModal from './components/gender-segregated-graph-modal/GenderSegregatedGraphModal';
 import FactsModal from './components/facts-modal/FactsModal';
+import firebase from 'firebase';
 import { updateCount } from './components/add-my-data-modal/AddMyDataModal.service';
 import data from './common/data';
 import graphOptions from './common/graphOptions';
@@ -42,7 +43,7 @@ const App = () => {
     setAvgGPAs(sumGPAs.map(s => (s / data.length).toFixed(3)));
 
     const userAgreed = localStorage.getItem("agreed");
-    setShowConfirmationModal(!userAgreed);
+    setShowConfirmationModal(!userAgreed && firebase.apps.length);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
