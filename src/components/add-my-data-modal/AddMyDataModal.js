@@ -5,15 +5,23 @@ import { saveData } from './AddMyDataModal.service';
 import modalStyles from '../../common/modalStyles';
 import classes from './AddMyDataModal.module.css';
 
-const AddMyDataModal = ({ open, handleClose }) => {
+const AddMyDataModal = ({ removeFromDOM }) => {
   const [fieldValues, setFieldValues] = useState({ roll: '', results: '' });
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     return () => {
       setFieldValues({ roll: '', results: '' });
     }
   }, []);
+
+  const handleClose = () => {
+    setOpen(false);
+    setTimeout(() => {
+      removeFromDOM();
+    }, 500);
+  }
 
   const onSubmit = () => {
     const { roll, results } = fieldValues;
@@ -22,10 +30,10 @@ const AddMyDataModal = ({ open, handleClose }) => {
 
     if (!trimRoll || !trimResults) return;
 
-    if(!firebase.apps.length) {
+    if (!firebase.apps.length) {
       alert("Sorry, Database is not setup by the developer");
       return;
-    } 
+    }
 
     setLoading(true);
     saveData(trimRoll, trimResults)
@@ -58,6 +66,7 @@ const AddMyDataModal = ({ open, handleClose }) => {
 
   return (
     <ReactModal
+      closeTimeoutMS={500}
       isOpen={open}
       style={modalStyles}
     >

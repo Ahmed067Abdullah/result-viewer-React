@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import modalStyles from '../../common/modalStyles';
 import classes from './FactsModal.module.css';
 
-const FactsModal = ({ avgGPAs, data, open, handleClose }) => {
+const FactsModal = ({ avgGPAs, data, removeFromDOM }) => {
+  const [open, setOpen] = useState(true);
+
+  const handleClose = () => {
+    setOpen(false);
+    setTimeout(() => {
+      removeFromDOM();
+    }, 500);
+  }
+
   let max4GPAsByStudent = { name: '', count: 0 };
   let max4GPAsInASemester = [0, 0, 0, 0, 0, 0, 0];
   let max4GPAsInOneSemester = {};
@@ -96,6 +105,7 @@ const FactsModal = ({ avgGPAs, data, open, handleClose }) => {
 
   return (
     <ReactModal
+      closeTimeoutMS={500}
       isOpen={open}
       style={modalStyles}
     >

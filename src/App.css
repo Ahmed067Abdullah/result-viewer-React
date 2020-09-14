@@ -85,6 +85,24 @@
   height: 450px;
 }
 
+.ReactModal__Overlay {
+  opacity: 0;
+  transform: translateY(600px);
+  transition: all 500ms ease-in-out;
+  background: none;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transform: translateY(600px);
+  background: none;
+}
+
 @media(max-width:740px) {
   .graph-container {
     height: 400px;

@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import ReactModal from 'react-modal';
 import modalStyles from '../../common/modalStyles';
 import classes from './GenderSegregatedGraphModal.module.css';
 
-const GenderSegregatedGraphModal = ({ allStudents, open, handleClose }) => {
+const GenderSegregatedGraphModal = ({ allStudents, removeFromDOM }) => {
+  const [open, setOpen] = useState(true);
+
+  const handleClose = () => {
+    setOpen(false);
+    setTimeout(() => {
+      removeFromDOM();
+    }, 500);
+  };
+
   const barGraphData = [{
     name: 'Girls',
     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -26,6 +35,7 @@ const GenderSegregatedGraphModal = ({ allStudents, open, handleClose }) => {
 
   return (
     <ReactModal
+      closeTimeoutMS={500}
       isOpen={open}
       style={modalStyles}
     >

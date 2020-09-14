@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import modalStyles from '../../common/modalStyles';
 import classes from './ConfirmationModal.module.css';
 
-const ConfirmationModal = ({ open, handleClose }) => {
+const ConfirmationModal = ({ removeFromDOM }) => {
+  const [open, setOpen] = useState(true);
 
+  const handleClose = () => {
+    setOpen(false);
+    setTimeout(() => {
+      removeFromDOM();
+    }, 500);
+  }
+  
   const handleCancel = () => {
     window.history.back();
   }
@@ -16,6 +24,7 @@ const ConfirmationModal = ({ open, handleClose }) => {
 
   return (
     <ReactModal
+      closeTimeoutMS={500}
       isOpen={open}
       style={modalStyles}
     >

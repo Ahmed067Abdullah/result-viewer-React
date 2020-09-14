@@ -221,28 +221,28 @@ const App = () => {
       {showResultModal
         ? <OverallResultModal
           open={showResultModal}
-          handleClose={() => setShowResultModal(false)}
+          removeFromDOM={() => setShowResultModal(false)}
           data={allStudents}
         />
         : null}
       {showGenderSegregatedGraph
         ? <GenderSegregatedGraphModal
           open={showGenderSegregatedGraph}
-          handleClose={() => setShowGenderSegregatedGraph(false)}
+          removeFromDOM={() => setShowGenderSegregatedGraph(false)}
           allStudents={allStudents}
         />
         : null}
       {showCgpaPieChartModal
         ? <CgpaPieChartModal
           open={showCgpaPieChartModal}
-          handleClose={() => setShowCgpaPieChartModal(false)}
+          removeFromDOM={() => setShowCgpaPieChartModal(false)}
           allStudents={allStudents}
         />
         : null}
       {showFactsModal
         ? <FactsModal
           open={showFactsModal}
-          handleClose={() => setShowFactsModal(false)}
+          removeFromDOM={() => setShowFactsModal(false)}
           data={allStudents}
           avgGPAs={avgGPAs}
         />

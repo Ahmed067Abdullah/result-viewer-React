@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import modalStyles from '../../common/modalStyles';
 import classes from './OverallResultModal.module.css';
 
-const OverallResultModal = ({ data, open, handleClose }) => {
+const OverallResultModal = ({ data, removeFromDOM }) => {
+  const [open, setOpen] = useState(true);
+
+  const handleClose = () => {
+    setOpen(false);
+    setTimeout(() => {
+      removeFromDOM();
+    }, 500);
+  };
+
   const students = [...data];
   students.sort((a, b) => (a.cgpa > b.cgpa) ? -1 : ((b.cgpa > a.cgpa) ? 1 : 0));
 
   return (
     <ReactModal
+      closeTimeoutMS={500}
       isOpen={open}
       style={modalStyles}
     >

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import ReactModal from 'react-modal';
 import modalStyles from '../../common/modalStyles';
 import classes from './CgpaPieChartModal.module.css';
 
-const CgpaPieChartModal = ({ allStudents, open, handleClose }) => {
-  const pieChartData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const CgpaPieChartModal = ({ allStudents, removeFromDOM }) => {
+  const [open, setOpen] = useState(true);
 
+  const handleClose = () => {
+    setOpen(false);
+    setTimeout(() => {
+      removeFromDOM();
+    }, 500);
+  }
+
+  const pieChartData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   for (let i = 0; i < allStudents.length; i++) {
     const { cgpa } = allStudents[i];
     let index = null;
@@ -20,6 +28,7 @@ const CgpaPieChartModal = ({ allStudents, open, handleClose }) => {
 
   return (
     <ReactModal
+      closeTimeoutMS={500}
       isOpen={open}
       style={modalStyles}
     >
