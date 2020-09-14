@@ -1,0 +1,4 @@
+.graph-container {
+  width: calc(100vw - 60px);
+  max-width: 900px;
+}

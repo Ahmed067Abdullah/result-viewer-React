@@ -5,6 +5,7 @@ import ConfirmationModal from './components/confirmation-modal/ConfirmationModal
 import AddMyDataModal from './components/add-my-data-modal/AddMyDataModal';
 import OverallResultModal from './components/overall-result-modal/OverallResultModal';
 import GenderSegregatedGraphModal from './components/gender-segregated-graph-modal/GenderSegregatedGraphModal';
+import CgpaPieChartModal from './components/cgpa-pie-chart-modal/CgpaPieChartModal';
 import FactsModal from './components/facts-modal/FactsModal';
 import firebase from 'firebase';
 import { updateCount } from './components/add-my-data-modal/AddMyDataModal.service';
@@ -23,6 +24,7 @@ const App = () => {
   const [showResultModal, setShowResultModal] = useState(false);
   const [showFactsModal, setShowFactsModal] = useState(false);
   const [showGenderSegregatedGraph, setShowGenderSegregatedGraph] = useState(false);
+  const [showCgpaPieChartModal, setShowCgpaPieChartModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   useEffect(() => {
@@ -131,6 +133,11 @@ const App = () => {
       clickHandler: () => setShowGenderSegregatedGraph(true)
     },
     {
+      label: 'CGPA Pie Chart',
+      value: 'chart',
+      clickHandler: () => setShowCgpaPieChartModal(true)
+    },
+    {
       label: 'Overall result',
       value: 'overallResult',
       clickHandler: () => setShowResultModal(true)
@@ -202,13 +209,13 @@ const App = () => {
       {showConfirmationModal
         ? <ConfirmationModal
           open={showConfirmationModal}
-          handleClose={() => setShowConfirmationModal(false)}
+          removeFromDOM={() => setShowConfirmationModal(false)}
         />
         : null}
       {showModal
         ? <AddMyDataModal
           open={showModal}
-          handleClose={() => setShowModal(false)}
+          removeFromDOM={() => setShowModal(false)}
         />
         : null}
       {showResultModal
@@ -222,6 +229,13 @@ const App = () => {
         ? <GenderSegregatedGraphModal
           open={showGenderSegregatedGraph}
           handleClose={() => setShowGenderSegregatedGraph(false)}
+          allStudents={allStudents}
+        />
+        : null}
+      {showCgpaPieChartModal
+        ? <CgpaPieChartModal
+          open={showCgpaPieChartModal}
+          handleClose={() => setShowCgpaPieChartModal(false)}
           allStudents={allStudents}
         />
         : null}
