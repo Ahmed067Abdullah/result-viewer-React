@@ -32,9 +32,9 @@ const ConfirmationModal = ({ removeFromDOM }) => {
         <p className={classes.warning}>Disclaimer!</p>
         <p className={classes.text}>Some user activitites are anonymously recorded for developer insights.</p>
         <div className={classes['btns-container']}>
-          <button className={classes['cancel-btn']} onClick={handleCancel}>
+          {/* <button className={classes['cancel-btn']} onClick={handleCancel}>
             {'Cancel'}
-          </button>
+          </button> */}
           <button onClick={hanleAgree}>
             {'I agree'}
           </button>
