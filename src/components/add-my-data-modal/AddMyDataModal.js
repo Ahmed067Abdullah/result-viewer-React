@@ -60,7 +60,7 @@ const AddMyDataModal = ({ removeFromDOM }) => {
     {
       'name': 'results',
       'label': 'Results',
-      'helperText': 'GPA of each semester from 1st to 7th, comma separted'
+      'helperText': 'GPA of each semester from 1st to 8th, comma separted'
     }
   ];
 
