@@ -40,7 +40,7 @@ const App = () => {
 
     const sumGPAs = data.reduce(
       (totalArr, d) => totalArr.map((t, i) => t + d.results[i]),
-      [0, 0, 0, 0, 0, 0, 0]
+      [0, 0, 0, 0, 0, 0, 0, 0]
     );
     setAvgGPAs(sumGPAs.map(s => (s / data.length).toFixed(3)));
 
