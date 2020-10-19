@@ -14,7 +14,7 @@ const FactsModal = ({ avgGPAs, data, removeFromDOM }) => {
   }
 
   let max4GPAsByStudent = { name: '', count: 0 };
-  let max4GPAsInASemester = [0, 0, 0, 0, 0, 0, 0];
+  let max4GPAsInASemester = [0, 0, 0, 0, 0, 0, 0, 0];
   let max4GPAsInOneSemester = {};
   let semestersWithNo4GPAs = [];
   let studentsScoring4GPAs = 0;
