@@ -171,7 +171,9 @@ const App = () => {
           onChange={val => {
             if (val && val.length) {
               const newStudent = val.find(v => !students.find(s => s.roll === v.roll));
-              updateCount(`/userSelected/${newStudent.roll}`);
+              if(newStudent) {
+                updateCount(`/userSelected/${newStudent.roll}`);
+              }
             }
             setStudents(val || []);
           }}
