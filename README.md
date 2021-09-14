@@ -3,14 +3,14 @@ This application is created to view semester wise performance of the students in
 
 ## How to visualize your batch's performance
 1. Clone/Download the repository.
-2. Go to ```sr/common/data.js``` and replace the array of students with your own and with exact same object structure.
-3. Go to ```sr/common/creditHours.js``` and replace the values there with credit hours of each of your semester.
+2. Go to ```src/common/data.js``` and replace the array of students with your own and with exact same object structure.
+3. Go to ```src/common/creditHours.js``` and replace the values there with credit hours of each of your semester.
 4. In the root directory, run ```npm install``` and then ```npm start```.
 
 ## Deployment
 1. Create your app on the [firebase](https://firebase.google.com/).
 2. Initialize the firebase in your local project using ```firebase init``` command and filling out necessary details.
-3. Go to ```sr/config/firebaseConfig.js``` and paste the config object there to track user activities **(OPTIONAL)**.
+3. Go to ```src/config/firebaseConfig.js``` and paste the config object there to track user activities **(OPTIONAL)**.
 4. In the root directory, run ```npm run deploy```.
 
 ## How to get firebase config object
